@@ -1,23 +1,23 @@
 #!/bin/bash
  
-# Aspetta che i3 sia completamente avviato
+# Wait for i3 to fully start
 sleep 3
  
-# Aspetta che i3 socket sia disponibile
+# Wait for i3 socket to be available
 while ! i3-msg -t get_version &>/dev/null; do
     sleep 0.5
 done
  
-# Ulteriore delay per sicurezza (polybar, picom, ecc. devono caricarsi)
+# Extra delay for safety (polybar, picom, etc. need to load)
 sleep 2
  
 RESURRECT_DIR=~/.i3/i3-resurrect
  
 for layout_file in "$RESURRECT_DIR"/workspace_*_layout.json; do
-    # Estrai il nome del workspace dal filename
+    # Extract workspace name from filename
     ws=$(basename "$layout_file" | sed 's/workspace_//;s/_layout.json//')
  
-    # Controlla che esista anche il file dei programmi
+    # Check that the programs file also exists
     prog_file="$RESURRECT_DIR/workspace_${ws}_programs.json"
     if [[ -f "$prog_file" ]]; then
         i3-resurrect restore -w "$ws" -n
