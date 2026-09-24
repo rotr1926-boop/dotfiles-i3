@@ -102,7 +102,7 @@ counter = 0
 while True:
     try:
         if counter == 0:
-            dsk = run("df -h /home | awk 'NR==2{print $4}'")
+            dsk = run("df -h $HOME | awk 'NR==2{print $4}'")
             cpu = get_cpu()
             gpu_util, vram = get_gpu()
             ram_pct, ram = get_ram()
